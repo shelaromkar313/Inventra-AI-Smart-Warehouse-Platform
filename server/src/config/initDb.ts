@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const db = require('./db');
+import fs from 'fs';
+import path from 'path';
+import * as db from './db';
 
-const initDb = async () => {
+const initDb = async (): Promise<void> => {
   try {
     const sqlPath = path.join(__dirname, 'init.sql');
     const sql = fs.readFileSync(sqlPath, 'utf8');
     
-    console.log('Initializing database...');
+    console.log('Initializing database (TS)...');
     await db.query(sql);
     console.log('Database initialized successfully.');
     
@@ -21,4 +21,4 @@ if (require.main === module) {
   initDb();
 }
 
-module.exports = initDb;
+export default initDb;

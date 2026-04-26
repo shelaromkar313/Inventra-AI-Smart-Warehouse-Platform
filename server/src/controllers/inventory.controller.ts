@@ -1,16 +1,29 @@
-const db = require('../config/db');
+import { Request, Response } from 'express';
+import * as db from '../config/db';
 
-exports.getAllItems = async (req, res) => {
+export interface InventoryItem {
+  id: number;
+  name: string;
+  description?: string;
+  sku: string;
+  quantity: number;
+  location?: string;
+  price: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export const getAllItems = async (req: Request, res: Response) => {
   try {
     const { rows } = await db.query('SELECT * FROM inventory ORDER BY created_at DESC');
-    res.json(rows);
+    res.json(rows as InventoryItem[]);
   } catch (error) {
     console.error('Error fetching inventory:', error);
     res.status(500).json({ error: 'Database error fetching inventory' });
   }
 };
 
-exports.createItem = async (req, res) => {
+export const createItem = async (req: Request, res: Response) => {
   const { name, description, sku, quantity, location, price } = req.body;
   
   if (!name || !sku) {
@@ -18,18 +31,18 @@ exports.createItem = async (req, res) => {
   }
 
   try {
-    const query = `
+    const sql = `
       INSERT INTO inventory (name, description, sku, quantity, location, price)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
     `;
     const values = [name, description, sku, quantity, location, price];
     
-    const { rows } = await db.query(query, values);
-    res.status(201).json(rows[0]);
-  } catch (error) {
+    const { rows } = await db.query(sql, values);
+    res.status(201).json(rows[0] as InventoryItem);
+  } catch (error: any) {
     console.error('Error creating item:', error);
-    if (error.code === '23505') { // Unique violation
+    if (error.code === '23505') {
       return res.status(400).json({ error: 'SKU already exists' });
     }
     res.status(500).json({ error: 'Database error creating inventory item' });
