@@ -22,3 +22,20 @@ VALUES
 ('Forklift Battery', '72V Lithium-ion battery', 'BATT-002', 12, 'Storage Room B', 4500.00),
 ('Hand Pallet Jack', 'Manual hydraulic lift', 'JACK-003', 8, 'Dock Area', 299.99)
 ON CONFLICT (sku) DO NOTHING;
+
+-- Create Alerts Table
+CREATE TABLE IF NOT EXISTS alerts (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(50) NOT NULL, -- 'LOW_STOCK', 'SECURITY', 'SYSTEM'
+    severity VARCHAR(20) NOT NULL, -- 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL'
+    message TEXT NOT NULL,
+    item_id INTEGER REFERENCES inventory(id),
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Seed Initial Alerts
+INSERT INTO alerts (type, severity, message, item_id)
+VALUES 
+('SYSTEM', 'LOW', 'Smart Warehouse System initialized successfully', NULL),
+('LOW_STOCK', 'MEDIUM', 'Forklift Battery stock is below threshold (5)', 2);

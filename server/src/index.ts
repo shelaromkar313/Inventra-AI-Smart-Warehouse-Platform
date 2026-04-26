@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import inventoryRoutes from './routes/inventory.routes';
+import alertRoutes from './routes/alert.routes';
+import aiRoutes from './routes/ai.routes';
 import initDb from './config/initDb';
 
 dotenv.config();
@@ -23,6 +25,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/inventory', inventoryRoutes);
+app.use('/api/alerts', alertRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Smart Warehouse AI Platform API (TypeScript) v1' });

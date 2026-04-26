@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as db from '../config/db';
+import * as mlService from '../services/ml.service';
 
 export interface InventoryItem {
   id: number;
@@ -46,5 +47,37 @@ export const createItem = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'SKU already exists' });
     }
     res.status(500).json({ error: 'Database error creating inventory item' });
+  }
+};
+
+export const getItemForecast = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    // 1. Fetch item from DB to ensure it exists
+    const { rows } = await db.query('SELECT * FROM inventory WHERE id = $1', [id]);
+    
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    const item = rows[0] as InventoryItem;
+
+    // 2. Generate mock history for now (since we don't have a history table)
+    // In a real app, you'd fetch this from a 'sales' or 'inventory_history' table
+    const mockHistory = [item.quantity + 5, item.quantity - 2, item.quantity + 10, item.quantity];
+
+    // 3. Call the Python ML Service
+    const forecast = await mlService.getForecast(item.id, mockHistory);
+
+    res.json({
+      item_name: item.name,
+      current_quantity: item.quantity,
+      ...forecast
+    });
+
+  } catch (error: any) {
+    console.error('Error fetching forecast:', error);
+    res.status(500).json({ error: error.message || 'Error communicating with ML service' });
   }
 };
