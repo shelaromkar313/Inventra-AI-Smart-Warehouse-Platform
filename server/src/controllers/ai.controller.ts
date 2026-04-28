@@ -10,7 +10,7 @@ export const processQuery = async (req: Request, res: Response) => {
   }
 
   try {
-    const result = await ragService.processQuery(query);
+    const result = await ragService.queryAI(query);
     res.json(result);
   } catch (error: any) {
     console.error('Error in RAG processQuery:', error);

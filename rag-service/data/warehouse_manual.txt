@@ -1,0 +1,21 @@
+SMART WAREHOUSE SAFETY PROTOCOLS - 2024
+--------------------------------------
+
+1. FORKLIFT OPERATIONS (ZONE A)
+- Maximum speed in Zone A is 5 km/h.
+- Operators must sound horn at every intersection.
+- Battery charging is only permitted in the designated area near Dock 2.
+
+2. HAZARDOUS MATERIALS (ZONE B)
+- All chemical spills must be reported to the Floor Manager immediately.
+- Use the orange spill kits located next to the hazard signage.
+- Full PPE (Protective Personal Equipment) is mandatory in Zone B.
+
+3. INVENTORY Tarrivals must be scanned using the CV Platform at the entry gate.
+- Low stockRACKING (SYSTEM-WIDE)
+- All new  alerts are triggered when quantity falls below 10 units.
+- ML forecasting runs every 24 hours to optimize restock cycles.
+
+4. FIRE SAFETY
+- Fire extinguishers are color-coded. Red for CO2, Blue for Powder.
+- Assembly point for all staff is the East Parking Lot.
