@@ -19,6 +19,8 @@ import {
   Bar
 } from 'recharts';
 
+import InventoryHeatmap from '../components/InventoryHeatmap';
+
 const data = [
   { name: 'Mon', stock: 4000, demand: 2400 },
   { name: 'Tue', stock: 3000, demand: 1398 },
@@ -28,6 +30,15 @@ const data = [
   { name: 'Sat', stock: 2390, demand: 3800 },
   { name: 'Sun', stock: 3490, demand: 4300 },
 ];
+
+// ...existing code...
+
+// Add InventoryHeatmap to the Dashboard page's JSX (example location below)
+
+// ...existing code for Dashboard layout...
+
+// Example: Place InventoryHeatmap below charts or in a new section
+// <InventoryHeatmap />
 
 const StatCard = ({ title, value, change, icon: Icon, color }: any) => (
   <div className="card group">
