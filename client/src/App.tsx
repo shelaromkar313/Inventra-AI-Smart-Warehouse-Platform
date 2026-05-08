@@ -7,6 +7,7 @@ import Inventory from './pages/Inventory';
 import Alerts from './pages/Alerts';
 import AIAssistant from './pages/AIAssistant';
 import Vision from './pages/Vision';
+import DigitalTwin from './pages/DigitalTwin';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="alerts" element={<Alerts />} />
             <Route path="assistant" element={<AIAssistant />} />
             <Route path="vision" element={<Vision />} />
+            <Route path="digital-twin" element={<DigitalTwin />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -8,7 +8,8 @@ import {
   Camera,
   Settings,
   Menu,
-  ChevronRight
+  ChevronRight,
+  Box
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -18,6 +19,7 @@ const navItems = [
   { path: '/alerts', label: 'Alerts', icon: Bell },
   { path: '/assistant', label: 'AI Assistant', icon: MessageSquare },
   { path: '/vision', label: 'Computer Vision', icon: Camera },
+  { path: '/digital-twin', label: 'Digital Twin', icon: Box },
 ];
 
 export const Sidebar = () => {
